@@ -3,14 +3,11 @@ using MediatR;
 
 namespace Bookify.Application.Abstractions.Messaging;
 
-public interface IBaseCommand
+//无参数只有返回值
+public interface ICommand : IRequest<Result>
 {
 }
-//无返回值的命令
-public interface ICommand : IRequest<Result>, IBaseCommand
-{
-}
-//返回一个TReponse的命令
-public interface ICommand<TReponse> : IRequest<Result<TReponse>>, IBaseCommand
+//有参数有返回值
+public interface ICommand<TReponse> : IRequest<Result<TReponse>>
 {
 }

@@ -1,4 +1,5 @@
-﻿using Bookify.Application.Abstractions.Messaging;
+﻿using Bookify.Application.Abstractions.Clock;
+using Bookify.Application.Abstractions.Messaging;
 using Bookify.Domain.Abstractions;
 using Bookify.Domain.Apartments;
 using Bookify.Domain.Bookings;
@@ -33,13 +34,14 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
 
     public async Task<Result<Guid>> Handle(ReserveBookingCommand request, CancellationToken cancellationToken)
     {
+        // Check if the user exists
         User? user = await _userRepository.GetByIdAsync(request.UserId, cancellationToken);
 
         if (user is null)
         {
             return Result.Failure<Guid>(UserErrors.NotFound);
         }
-
+        // Check if the apartment exists
         Apartment? apartment = await _apartmentRepository.GetByIdAsync(request.ApartmentId, cancellationToken);
 
         if (apartment is null)
@@ -47,8 +49,9 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
             return Result.Failure<Guid>(ApartmentErrors.NotFound);
         }
 
+        //创建预定时间段
         var duration = DateRange.Create(request.StartDate, request.EndDate);
-
+        // Check if the booking duration is valid
         if (await _bookingRepository.IsOverlappingAsync(apartment, duration, cancellationToken))
         {
             return Result.Failure<Guid>(BookingErrors.Overlap);
@@ -61,8 +64,9 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
             _dateTimeProvider.UtcNow,
             _pricingService);
 
+        //添加booking，
         _bookingRepository.Add(booking);
-
+        //保存
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return booking.Id;

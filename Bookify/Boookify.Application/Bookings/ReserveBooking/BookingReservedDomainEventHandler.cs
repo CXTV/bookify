@@ -6,6 +6,7 @@ using MediatR;
 
 namespace Bookify.Application.Bookings.ReserveBooking;
 
+/// 处理 BookingReservedDomainEvent 事件
 internal sealed class BookingReservedDomainEventHandler : INotificationHandler<BookingReservedDomainEvent>
 {
     private readonly IBookingRepository _bookingRepository;
@@ -25,20 +26,21 @@ internal sealed class BookingReservedDomainEventHandler : INotificationHandler<B
 
     public async Task Handle(BookingReservedDomainEvent notification, CancellationToken cancellationToken)
     {
+        //通过事件里传来的 BookingId 从数据库查出预订信息。
         Booking? booking = await _bookingRepository.GetByIdAsync(notification.BookingId, cancellationToken);
 
         if (booking is null)
         {
             return;
         }
-
+        //根据 booking.UserId 查出用户信息。
         User? user = await _userRepository.GetByIdAsync(booking.UserId, cancellationToken);
 
         if (user is null)
         {
             return;
         }
-
+        //通过用户信息发送邮件。
         await _emailService.SendAsync(
             user.Email,
             "Booking reserved!",
