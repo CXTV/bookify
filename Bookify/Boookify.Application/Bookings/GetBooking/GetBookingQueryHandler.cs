@@ -16,8 +16,9 @@ internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, Bo
 
     public async Task<Result<BookingResponse>> Handle(GetBookingQuery request, CancellationToken cancellationToken)
     {
+        //创建数据库连接
         using IDbConnection connection = _sqlConnectionFactory.CreateConnection();
-
+        //执行的sql
         const string sql = """
                            SELECT
                                id AS Id,
@@ -38,7 +39,7 @@ internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, Bo
                            FROM bookings
                            WHERE id = @BookingId
                            """;
-
+        //执行sql
         BookingResponse? booking = await connection.QueryFirstOrDefaultAsync<BookingResponse>(
             sql,
             new
