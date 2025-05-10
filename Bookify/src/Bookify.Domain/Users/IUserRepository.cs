@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Bookify.Domain.Users;
+﻿namespace Bookify.Domain.Users;
 
 public interface IUserRepository
 {

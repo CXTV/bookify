@@ -3,6 +3,7 @@ using Bookify.Application.Abstractions.Data;
 using Npgsql;
 
 namespace Bookify.Infrastructure.Data;
+
 //创建Dapper链接数据库的工厂
 internal sealed class SqlConnectionFactory : ISqlConnectionFactory
 {

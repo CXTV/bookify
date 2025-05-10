@@ -5,7 +5,7 @@ namespace Bookify.Domain.Bookings;
 
 public class PricingService
 {
-    public PricingDetails CalculatePrice(Apartment apartment, DateRange period) 
+    public PricingDetails CalculatePrice(Apartment apartment, DateRange period)
     {
         //获取当前房型的价格
         Currency currency = apartment.Price.Currency;
@@ -26,6 +26,7 @@ public class PricingService
                 _ => 0
             };
         }
+
         //计算附加费用
         var amenitiesUpCharge = Money.Zero(currency);
         if (percentageUpCharge > 0)

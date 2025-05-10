@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.Api.Controllers.Bookings;
 
-
 [ApiController]
 [Route("api/bookings")]
 public class BookingsController : ControllerBase

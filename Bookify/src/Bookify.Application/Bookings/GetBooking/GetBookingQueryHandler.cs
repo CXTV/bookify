@@ -5,6 +5,7 @@ using Bookify.Domain.Abstractions;
 using Dapper;
 
 namespace Bookify.Application.Bookings.GetBooking;
+
 internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, BookingResponse>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;

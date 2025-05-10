@@ -1,8 +1,9 @@
 ﻿using Bookify.Domain.Users;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Bookify.Infrastructure.Configurations;
+
 internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
@@ -25,5 +26,8 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
         ;
 
         builder.HasIndex(user => user.Email).IsUnique();
+
+        builder.HasIndex(user => user.IdentityId).IsUnique();
+
     }
 }

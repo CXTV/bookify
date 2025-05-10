@@ -7,13 +7,13 @@ public sealed class Apartment : Entity
 {
     public Apartment(
         Guid id,
-        Name name, 
-        Description description, 
-        Address address, 
-        Money price, 
+        Name name,
+        Description description,
+        Address address,
+        Money price,
         Money cleaningFee,
         List<Amenity> amenities
-        ) : base(id)
+    ) : base(id)
     {
         Name = name;
         Description = description;
@@ -26,7 +26,6 @@ public sealed class Apartment : Entity
 
     private Apartment()
     {
-        
     }
 
     public Name Name { get; private set; }
@@ -41,6 +40,5 @@ public sealed class Apartment : Entity
 
     public DateTime? LastBookedOnUtc { get; internal set; }
 
-    public List<Amenity> Amenities { get; private set; } = new ();
-
+    public List<Amenity> Amenities { get; private set; } = new();
 }

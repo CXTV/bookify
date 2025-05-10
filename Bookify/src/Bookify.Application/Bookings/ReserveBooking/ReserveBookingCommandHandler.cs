@@ -10,12 +10,12 @@ namespace Bookify.Application.Bookings.ReserveBooking;
 
 internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBookingCommand, Guid>
 {
-    private readonly IUserRepository _userRepository;
     private readonly IApartmentRepository _apartmentRepository;
     private readonly IBookingRepository _bookingRepository;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly PricingService _pricingService;
     private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly PricingService _pricingService;
+    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserRepository _userRepository;
 
     public ReserveBookingCommandHandler(
         IUserRepository userRepository,
@@ -42,6 +42,7 @@ internal sealed class ReserveBookingCommandHandler : ICommandHandler<ReserveBook
         {
             return Result.Failure<Guid>(UserErrors.NotFound);
         }
+
         // Check if the apartment exists
         Apartment? apartment = await _apartmentRepository.GetByIdAsync(request.ApartmentId, cancellationToken);
 

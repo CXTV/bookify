@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bookify.Domain.Shared;
+﻿namespace Bookify.Domain.Shared;
 
 public record Currency
 {
     internal static readonly Currency None = new("");
     public static readonly Currency Usd = new("USD");
     public static readonly Currency Eur = new("EUR");
+
+    //All 集合列出了所有合法的货币
+    public static readonly IReadOnlyCollection<Currency> All = new[]
+    {
+        Usd,
+        Eur
+    };
 
     //私有构造函数，只能在类内部创建实例
     private Currency(string code)
@@ -26,11 +27,4 @@ public record Currency
         return All.FirstOrDefault(c => c.Code == code) ??
                throw new ApplicationException("The currency code is invalid");
     }
-
-    //All 集合列出了所有合法的货币
-    public static readonly IReadOnlyCollection<Currency> All = new[]
-    {
-        Usd,
-        Eur
-    };
 }

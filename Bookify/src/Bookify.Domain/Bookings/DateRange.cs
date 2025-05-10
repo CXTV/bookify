@@ -9,8 +9,10 @@ public record DateRange
     public DateOnly Start { get; init; }
 
     public DateOnly End { get; init; }
+
     //计算天数
     public int LengthInDays => End.DayNumber - Start.DayNumber;
+
     //创建日期范围
     public static DateRange Create(DateOnly start, DateOnly end)
     {

@@ -5,7 +5,6 @@ using Bookify.Domain.Shared;
 
 namespace Bookify.Domain.Bookings;
 
-
 public sealed class Booking : Entity
 {
     private Booking(
@@ -40,7 +39,7 @@ public sealed class Booking : Entity
 
     public Guid UserId { get; private set; }
 
-    public DateRange Duration { get; private set; }
+    public DateRange Duration { get; }
 
     public Money PriceForPeriod { get; private set; }
 

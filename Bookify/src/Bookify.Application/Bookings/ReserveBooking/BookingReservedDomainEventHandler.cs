@@ -1,7 +1,7 @@
-﻿using Bookify.Domain.Bookings;
+﻿using Bookify.Application.Abstractions.Email;
+using Bookify.Domain.Bookings;
 using Bookify.Domain.Bookings.Events;
 using Bookify.Domain.Users;
-using Bookify.Application.Abstractions.Email;
 using MediatR;
 
 namespace Bookify.Application.Bookings.ReserveBooking;
@@ -10,12 +10,12 @@ namespace Bookify.Application.Bookings.ReserveBooking;
 internal sealed class BookingReservedDomainEventHandler : INotificationHandler<BookingReservedDomainEvent>
 {
     private readonly IBookingRepository _bookingRepository;
-    private readonly IUserRepository _userRepository;
     private readonly IEmailService _emailService;
+    private readonly IUserRepository _userRepository;
 
     public BookingReservedDomainEventHandler(
-        IEmailService emailService, 
-        IUserRepository userRepository, 
+        IEmailService emailService,
+        IUserRepository userRepository,
         IBookingRepository bookingRepository)
     {
         _emailService = emailService;
@@ -33,6 +33,7 @@ internal sealed class BookingReservedDomainEventHandler : INotificationHandler<B
         {
             return;
         }
+
         //根据 booking.UserId 查出用户信息。
         User? user = await _userRepository.GetByIdAsync(booking.UserId, cancellationToken);
 
@@ -40,6 +41,7 @@ internal sealed class BookingReservedDomainEventHandler : INotificationHandler<B
         {
             return;
         }
+
         //通过用户信息发送邮件。
         await _emailService.SendAsync(
             user.Email,

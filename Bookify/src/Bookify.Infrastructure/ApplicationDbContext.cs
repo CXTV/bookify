@@ -15,13 +15,6 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
         _publisher = publisher;
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-
-        base.OnModelCreating(modelBuilder);
-    }
-
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         try
@@ -37,6 +30,14 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
             throw new ConcurrencyException("Concurrency exception occurred.", ex);
         }
     }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+        base.OnModelCreating(modelBuilder);
+    }
+
     //发布领域事件
     private async Task PublishDomainEventsAsync()
     {

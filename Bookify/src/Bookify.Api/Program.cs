@@ -1,5 +1,4 @@
 using Bookify.Api.Extensions;
-using Bookify.Application;
 using Bookify.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -20,13 +19,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
     app.ApplyMigrations();
-    //app.SeedData();
-
+    app.SeedData();
 }
 
 app.UseHttpsRedirection();
 
 app.UseCustomExceptionHandler();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

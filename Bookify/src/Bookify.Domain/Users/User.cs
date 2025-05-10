@@ -23,6 +23,9 @@ public sealed class User : Entity
 
     public Email Email { get; private set; }
 
+    //身份识别ID
+    public string IdentityId { get; private set; } = string.Empty;
+
     //由于设置了private set，所以只能在类内部修改,然后再通过public Factory method将该方法暴露给外界
     public static User Create(FirstName firstName, LastName lastName, Email email)
     {
@@ -32,5 +35,11 @@ public sealed class User : Entity
         user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
 
         return user;
+    }
+
+    //设置身份识别ID
+    public void SetIdentityId(string identityId)
+    {
+        IdentityId = identityId;
     }
 }

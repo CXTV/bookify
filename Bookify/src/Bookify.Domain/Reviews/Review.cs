@@ -3,11 +3,12 @@ using Bookify.Domain.Bookings;
 using Bookify.Domain.Reviews.Events;
 
 namespace Bookify.Domain.Reviews;
+
 public sealed class Review : Entity
 {
     private Review(
         Guid id,
-    Guid apartmentId,
+        Guid apartmentId,
         Guid bookingId,
         Guid userId,
         Rating rating,

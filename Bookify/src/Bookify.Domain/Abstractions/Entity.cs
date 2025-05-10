@@ -24,11 +24,13 @@ public abstract class Entity
     {
         return _domainEvents.ToList();
     }
+
     //清除领域事件
     public void ClearDomainEvents()
     {
         _domainEvents.Clear();
     }
+
     //添加领域事件
     protected void RaiseDomainEvent(IDomainEvent domainEvent)
     {

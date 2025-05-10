@@ -12,10 +12,22 @@ public record Money(decimal Amount, Currency Currency)
 
         return new Money(first.Amount + second.Amount, first.Currency);
     }
+
     //返回一个“空金额”，没有货币单位
-    public static Money Zero() => new(0, Currency.None);
+    public static Money Zero()
+    {
+        return new Money(0, Currency.None);
+    }
+
     //返回指定货币单位的 0 金额
-    public static Money Zero(Currency currency) => new(0, currency);
+    public static Money Zero(Currency currency)
+    {
+        return new Money(0, currency);
+    }
+
     //查金额是否为零，且货币单位相同
-    public bool IsZero() => this == Zero(Currency);
+    public bool IsZero()
+    {
+        return this == Zero(Currency);
+    }
 }

@@ -5,8 +5,8 @@ namespace Bookify.Api.Middleware;
 
 public class ExceptionHandlingMiddleware
 {
-    private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+    private readonly RequestDelegate _next;
 
     public ExceptionHandlingMiddleware(
         RequestDelegate next,
@@ -33,7 +33,7 @@ public class ExceptionHandlingMiddleware
                 Status = exceptionDetails.Status,
                 Type = exceptionDetails.Type,
                 Title = exceptionDetails.Title,
-                Detail = exceptionDetails.Detail,
+                Detail = exceptionDetails.Detail
             };
 
             if (exceptionDetails.Errors is not null)
