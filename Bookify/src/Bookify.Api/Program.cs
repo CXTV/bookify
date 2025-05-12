@@ -1,4 +1,5 @@
 using Bookify.Api.Extensions;
+using Bookify.Application;
 using Bookify.Infrastructure;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;

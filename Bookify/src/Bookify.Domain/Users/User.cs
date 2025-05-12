@@ -34,7 +34,7 @@ public sealed class User : Entity
     //获取角色
     public IReadOnlyCollection<Role> Roles => _roles.ToList();
 
-    //由于设置了private set，所以只能在类内部修改,然后再通过public Factory method将该方法暴露给外界
+    //由于设置了private set，所以只能在类内部修改,然后外部通过Create方法创建对象
     public static User Create(FirstName firstName, LastName lastName, Email email)
     {
         var user = new User(Guid.NewGuid(), firstName, lastName, email);

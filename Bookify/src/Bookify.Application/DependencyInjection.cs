@@ -1,7 +1,9 @@
 ﻿using Bookify.Application.Abstractions.Behaviors;
-using Bookify.Domain.Bookings;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Bookify.Domain.Bookings;
+
+namespace Bookify.Application;
 
 public static class DependencyInjection
 {
