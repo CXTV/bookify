@@ -19,4 +19,18 @@ public static class ApplicationBuilderExtensions
     {
         app.UseMiddleware<ExceptionHandlingMiddleware>();
     }
+
+    public static IApplicationBuilder UseRequestContextLogging(this IApplicationBuilder app)
+    {
+        app.UseMiddleware<RequestContextLoggingMiddleware>();
+
+        return app;
+    }
+
+    public static IApplicationBuilder LocalOnlyHealthCheck(this IApplicationBuilder app)
+    {
+        app.UseMiddleware<LocalOnlyHealthCheckMiddleware>();
+
+        return app;
+    }
 }

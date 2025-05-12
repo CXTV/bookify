@@ -5,6 +5,11 @@ namespace Bookify.Domain.Users;
 
 public sealed class User : Entity
 {
+
+    //添加角色字段（属性）
+    private readonly List<Role> _roles = new();
+
+
     private User(Guid id, FirstName firstName, LastName lastName, Email email)
         : base(id)
     {
@@ -26,6 +31,9 @@ public sealed class User : Entity
     //身份识别ID
     public string IdentityId { get; private set; } = string.Empty;
 
+    //获取角色
+    public IReadOnlyCollection<Role> Roles => _roles.ToList();
+
     //由于设置了private set，所以只能在类内部修改,然后再通过public Factory method将该方法暴露给外界
     public static User Create(FirstName firstName, LastName lastName, Email email)
     {
@@ -33,6 +41,8 @@ public sealed class User : Entity
 
         //添加领域事件
         user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
+        //添加角色信息
+        user._roles.Add(Role.Registered);
 
         return user;
     }

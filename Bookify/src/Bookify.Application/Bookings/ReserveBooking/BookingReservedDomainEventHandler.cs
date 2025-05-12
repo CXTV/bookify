@@ -42,7 +42,7 @@ internal sealed class BookingReservedDomainEventHandler : INotificationHandler<B
             return;
         }
 
-        //通过用户信息发送邮件。
+        //通过用户信息发送邮件。(可以是支付/消息队列/存储服务)
         await _emailService.SendAsync(
             user.Email,
             "Booking reserved!",
